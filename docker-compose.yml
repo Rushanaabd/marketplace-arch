@@ -1,0 +1,14 @@
+services:
+  notification-service:
+    build:
+      context: ./services/notification-service
+    image: marketplace/notification-service:1.0.0
+    container_name: notification-service
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
